@@ -1,12 +1,12 @@
 :root {
-  --bg: #fff8fb;
+  --bg: #f0f7ff;
   --card: #ffffff;
-  --text: #251b24;
-  --muted: #7a6876;
-  --accent: #e75a97;
-  --accent-dark: #c93f7c;
-  --border: #f0d8e5;
-  --shadow: 0 10px 30px rgba(231, 90, 151, 0.12);
+  --text: #1a2a3a;
+  --muted: #6b8099;
+  --accent: #4aa8d8;
+  --accent-dark: #2f8bbf;
+  --border: #cce4f7;
+  --shadow: 0 10px 30px rgba(74, 168, 216, 0.12);
   --radius: 18px;
 }
 
@@ -67,7 +67,7 @@ body {
   height: 170px;
   object-fit: cover;
   display: block;
-  background: #f8eaf1;
+  background: #daeef9;
 }
 
 .card-body {
@@ -90,10 +90,11 @@ body {
   border: none;
   border-radius: 12px;
   padding: 12px;
-  background: #fbe4ee;
-  color: #8f2d58;
+  background: #d6eef9;
+  color: #1a5f88;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
 .card.selected .card-toggle {
@@ -119,6 +120,13 @@ body {
   padding: 12px;
   font-size: 14px;
   resize: vertical;
+  background: #f7fbff;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+
+.note-box textarea:focus {
+  border-color: var(--accent);
 }
 
 .footer {
@@ -135,6 +143,7 @@ body {
   background: var(--accent);
   color: white;
   cursor: pointer;
+  transition: background 0.18s ease;
 }
 
 .submit-btn:hover {
