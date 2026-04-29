@@ -16,5 +16,29 @@
     "title": "Супчик куриновый",
     "place": "ВкусВилл",
     "image": "./images/soup.webp"
+  },
+  {
+    "id": 4,
+    "title": "Питса (как в прошлый раз)",
+    "place": "ДоДо",
+    "image": "./images/pizaa.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Питса (сам реши)",
+    "place": "гденибудь",
+    "image": "./images/pizza.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Хот Доги",
+    "place": "сам сделай суко",
+    "image": "./images/hot-dog.png"
+  },
+  {
+    "id": 7,
+    "title": "Шава",
+    "place": "сам сделай суко",
+    "image": "./images/shava.jpg"
   }
 ]
