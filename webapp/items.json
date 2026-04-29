@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "title": "Том Ям",
-    "place": "Thai Place",
-    "image": "https://picsum.photos/seed/tomyam/400/300"
+    "title": "Капибарное",
+    "place": "Лавка",
+    "image": "./images/karbo.png"
   },
   {
     "id": 2,
