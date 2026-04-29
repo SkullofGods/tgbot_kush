@@ -13,8 +13,8 @@
   },
   {
     "id": 3,
-    "title": "Моти",
-    "place": "Yami Yami",
-    "image": "https://picsum.photos/seed/mochi/400/300"
+    "title": "Супчик куриновый",
+    "place": "ВкусВилл",
+    "image": "./images/soup.webp"
   }
 ]
