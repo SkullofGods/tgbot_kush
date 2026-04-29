@@ -139,6 +139,12 @@
   },
   {
     "id": 24,
+    "title": "чепсы",
+    "place": "",
+    "image": "./images/chepso.webp"
+  },
+  {
+    "id": 24,
     "title": "И КОШКУ ПРИНЕСИ",
     "place": "МНЕ ПОХУЙ ОТКУДА",
     "image": "./images/kosh.jpg"
