@@ -144,13 +144,25 @@
     "image": "./images/chepso.webp"
   },
   {
-    "id": 24,
+    "id": 25,
+    "title": "кола",
+    "place": "",
+    "image": "./images/cola.jpg"
+  },
+  {
+    "id": 26,
+    "title": "КВАС",
+    "place": "",
+    "image": "./images/kvas.png"
+  },
+  {
+    "id": 27,
     "title": "И КОШКУ ПРИНЕСИ",
     "place": "МНЕ ПОХУЙ ОТКУДА",
     "image": "./images/kosh.jpg"
   },
   {
-    "id": 25,
+    "id": 28,
     "title": "Гладица",
     "place": "сюда подошел",
     "image": "./images/gladitsa.webp"
