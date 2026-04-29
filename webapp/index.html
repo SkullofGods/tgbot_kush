@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <title>Меню хотелок</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Что тебе хочется? 💕</h1>
+      <p>Выбери вкусняшки и нажми кнопку ниже</p>
+    </header>
+
+    <section id="items" class="grid"></section>
+
+    <section class="note-box">
+      <label for="note">Комментарий</label>
+      <textarea
+        id="note"
+        placeholder="Например: очень хочется сегодня именно это"
+      ></textarea>
+    </section>
+
+    <footer class="footer">
+      <button id="submitBtn" class="submit-btn">Хочу ✨</button>
+    </footer>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

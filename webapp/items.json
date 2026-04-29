@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Том Ям",
+    "place": "Thai Place",
+    "image": "./images/item1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Филадельфия",
+    "place": "Sushi Boom",
+    "image": "./images/item2.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Моти",
+    "place": "Yami Yami",
+    "image": "./images/item3.jpg"
+  }
+]
