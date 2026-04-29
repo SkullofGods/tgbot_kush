@@ -3,18 +3,18 @@
     "id": 1,
     "title": "Том Ям",
     "place": "Thai Place",
-    "image": "./images/item1.jpg"
+    "image": "https://picsum.photos/seed/tomyam/400/300"
   },
   {
     "id": 2,
     "title": "Филадельфия",
     "place": "Sushi Boom",
-    "image": "./images/item2.jpg"
+    "image": "https://picsum.photos/seed/philadelphia/400/300"
   },
   {
     "id": 3,
     "title": "Моти",
     "place": "Yami Yami",
-    "image": "./images/item3.jpg"
+    "image": "https://picsum.photos/seed/mochi/400/300"
   }
 ]

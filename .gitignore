@@ -1,0 +1,16 @@
+# Env файлы — НЕ коммитить (токены, секреты)
+.env
+.env.local
+.env.prod
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.iml
