@@ -41,7 +41,7 @@ def main_keyboard() -> ReplyKeyboardMarkup:
 @dp.message(CommandStart())
 async def cmd_start(message: Message):
     await message.answer(
-        "Привет! Нажми кнопку ниже, чтобы открыть меню хотелок 🍓",
+        "Привет! Нажми кнопку ниже, чтобы призвать питание",
         reply_markup=main_keyboard(),
     )
 
@@ -65,14 +65,14 @@ async def handle_web_app_data(message: Message):
             for item in items
         ]
         text_for_owner = (
-            f"💌 Новая хотелка от {user_name}\n\n"
+            f"ХОЧУ от {user_name}\n\n"
             f"Выбрано:\n" + "\n".join(lines)
         )
         if note:
             text_for_owner += f"\n\nКомментарий: {note}"
 
         await bot.send_message(OWNER_CHAT_ID, text_for_owner)
-        await message.answer("Готово! Я отправил список ему 💖")
+        await message.answer("Запрос отправлен")
 
     except Exception as e:
         logger.exception("Failed to process web app data")
