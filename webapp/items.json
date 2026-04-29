@@ -40,5 +40,113 @@
     "title": "Шава",
     "place": "сам сделай суко",
     "image": "./images/shava.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Манна Кашная",
+    "place": "сам сделай суко",
+    "image": "./images/manka.jpg"
+  },
+  {
+    "id": 9,
+    "title": "Keks",
+    "place": "закажи шоколадный где-нибудь",
+    "image": "./images/keks.webp"
+  },
+  {
+    "id": 10,
+    "title": "Keks",
+    "place": "сам сделай суко",
+    "image": "./images/keks_sam.webp"
+  },
+  {
+    "id": 11,
+    "title": "Сальчичон",
+    "place": "МНЕ ПОХУЙ ОТКУДА",
+    "image": "./images/salchichon.webp"
+  },
+  {
+    "id": 12,
+    "title": "Огурчике",
+    "place": "Вкусвилл",
+    "image": "./images/cucumber.webp"
+  },
+  {
+    "id": 13,
+    "title": "Горячие бутеры хачю",
+    "place": "ну ты понял",
+    "image": "./images/buter.jpg"
+  },
+  {
+    "id": 14,
+    "title": "Сендвичи!!!",
+    "place": "ААААА",
+    "image": "./images/sand.jpg"
+  },
+  {
+    "id": 15,
+    "title": "Роллы",
+    "place": "Достаевский или ебидоеби",
+    "image": "./images/rolls.jpg"
+  },
+  {
+    "id": 16,
+    "title": "Подливку ХОЧУ",
+    "place": "сделаеш",
+    "image": "./images/podliva.jpg"
+  },
+  {
+    "id": 17,
+    "title": "МЯСА СУКА МЯСА",
+    "place": "сделаеш",
+    "image": "./images/myaso.jpg"
+  },
+  {
+    "id": 18,
+    "title": "БОРЩ",
+    "place": "сделаеш",
+    "image": "./images/borsh.jpeg"
+  },
+  {
+    "id": 19,
+    "title": "Пельмени",
+    "place": "сварить",
+    "image": "./images/pelmeni.webp"
+  },
+  {
+    "id": 20,
+    "title": "Пельмени",
+    "place": "пожариц",
+    "image": "./images/pelmenijar.jpg"
+  },
+  {
+    "id": 21,
+    "title": "Роллтон",
+    "place": "куриновый",
+    "image": "./images/rollton.jpg"
+  },
+  {
+    "id": 22,
+    "title": "Пюре",
+    "place": "роллтонское",
+    "image": "./images/pureroll.webp"
+  },
+  {
+    "id": 23,
+    "title": "Пюре",
+    "place": "нормальное",
+    "image": "./images/pure.webp"
+  },
+  {
+    "id": 24,
+    "title": "И КОШКУ ПРИНЕСИ",
+    "place": "МНЕ ПОХУЙ ОТКУДА",
+    "image": "./images/kosh.jpg"
+  },
+  {
+    "id": 25,
+    "title": "Гладица",
+    "place": "сюда подошел",
+    "image": "./images/gladitsa.webp"
   }
 ]
