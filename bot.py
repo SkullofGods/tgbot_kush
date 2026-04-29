@@ -1,33 +1,37 @@
-import asyncio
 import json
 import logging
+import os
+from pathlib import Path
+from urllib.parse import urlparse
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
-from aiogram.types import (
-    Message,
-    ReplyKeyboardMarkup,
-    KeyboardButton,
-    WebAppInfo,
-)
+from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
+from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiohttp import web
 
 from config import BOT_TOKEN, WEB_APP_URL, OWNER_CHAT_ID
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+
+WEBHOOK_PATH = "/webhook"
+HOST = "0.0.0.0"
+PORT = int(os.getenv("PORT", "3000"))
+WEBAPP_DIR = Path(__file__).parent / "webapp"
+
+# Базовый URL бота (https://bot-xxx.bothost.tech)
+_parsed = urlparse(WEB_APP_URL)
+BASE_URL = f"{_parsed.scheme}://{_parsed.netloc}"
 
 
 def main_keyboard() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(
         keyboard=[
-            [
-                KeyboardButton(
-                    text="🍽 Открыть меню",
-                    web_app=WebAppInfo(url=WEB_APP_URL),
-                )
-            ]
+            [KeyboardButton(text="🍽 Открыть меню", web_app=WebAppInfo(url=WEB_APP_URL))]
         ],
         resize_keyboard=True,
         is_persistent=True,
@@ -56,17 +60,14 @@ async def handle_web_app_data(message: Message):
             await message.answer("Ты ничего не выбрала 🥺")
             return
 
-        lines = []
-        for item in items:
-            title = item.get("title", "Без названия")
-            place = item.get("place", "Без места")
-            lines.append(f"• {title} — {place}")
-
+        lines = [
+            f"• {item.get('title', 'Без названия')} — {item.get('place', 'Без места')}"
+            for item in items
+        ]
         text_for_owner = (
             f"💌 Новая хотелка от {user_name}\n\n"
             f"Выбрано:\n" + "\n".join(lines)
         )
-
         if note:
             text_for_owner += f"\n\nКомментарий: {note}"
 
@@ -74,11 +75,28 @@ async def handle_web_app_data(message: Message):
         await message.answer("Готово! Я отправил список ему 💖")
 
     except Exception as e:
-        logging.exception("Failed to process web app data")
+        logger.exception("Failed to process web app data")
         await message.answer(f"Ошибка обработки данных: {e}")
 
 
-async def main():
+async def health_handler(request: web.Request) -> web.Response:
+    return web.json_response({"ok": True, "status": "running"})
+
+
+async def on_startup(app: web.Application) -> None:
+    webhook_url = f"{BASE_URL}{WEBHOOK_PATH}"
+    logger.info(f"Setting webhook: {webhook_url}")
+    await bot.set_webhook(webhook_url)
+    logger.info("Webhook set OK")
+
+
+async def on_shutdown(app: web.Application) -> None:
+    logger.info("Deleting webhook...")
+    await bot.delete_webhook()
+    await bot.session.close()
+
+
+def main():
     if not BOT_TOKEN:
         raise RuntimeError("BOT_TOKEN is empty")
     if not WEB_APP_URL:
@@ -86,8 +104,27 @@ async def main():
     if not OWNER_CHAT_ID:
         raise RuntimeError("OWNER_CHAT_ID is empty")
 
-    await dp.start_polling(bot)
+    app = web.Application()
+
+    # Health check
+    app.router.add_get("/", health_handler)
+    app.router.add_get("/health", health_handler)
+
+    # Mini App — статические файлы
+    if WEBAPP_DIR.exists():
+        app.router.add_static("/webapp", path=str(WEBAPP_DIR), show_index=True)
+        logger.info(f"Serving webapp from {WEBAPP_DIR}")
+
+    # Telegram webhook
+    SimpleRequestHandler(dispatcher=dp, bot=bot).register(app, path=WEBHOOK_PATH)
+    setup_application(app, dp, bot=bot)
+
+    app.on_startup.append(on_startup)
+    app.on_shutdown.append(on_shutdown)
+
+    logger.info(f"Starting server on {HOST}:{PORT}")
+    web.run_app(app, host=HOST, port=PORT)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
