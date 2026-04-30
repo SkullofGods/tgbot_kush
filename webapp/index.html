@@ -15,9 +15,9 @@
     </header>
 
     <nav class="categories">
-      <button class="cat-btn" data-cat="еда">🍽 Еда</button>
+      <button class="cat-btn" data-cat="вкусняшки">🍬 Вкусняшки</button>
+      <button class="cat-btn" data-cat="еда">🍳 Еда</button>
       <button class="cat-btn" data-cat="напитки">🥤 Напитки</button>
-      <button class="cat-btn" data-cat="вкусное">🍬 Вкусное</button>
       <button class="cat-btn" data-cat="услуги">💋 Услуги</button>
     </nav>
 
@@ -43,9 +43,8 @@
     var noteInput = document.getElementById('note');
     var selectedItems = {};
     var allItems = [];
-    var activeCategory = null; // null = показывать все
+    var activeCategory = null;
 
-    // Клик по категории: выбрать или снять выбор
     var catBtns = document.querySelectorAll('.cat-btn');
     for (var ci = 0; ci < catBtns.length; ci++) {
       (function(btn) {
@@ -130,7 +129,7 @@
       }
     }
 
-    fetch('./items.json?v=3')
+    fetch('./items.json?v=4')
       .then(function(r) { return r.json(); })
       .then(function(items) {
         allItems = items;
