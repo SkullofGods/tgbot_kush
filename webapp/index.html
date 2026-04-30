@@ -14,6 +14,8 @@
       <p>Выбери и нажми кнопку ниже</p>
     </header>
 
+    <nav class="categories" id="categories"></nav>
+
     <section id="items" class="grid"></section>
 
     <section class="note-box">
@@ -32,9 +34,13 @@
     tg.expand();
 
     const itemsContainer = document.getElementById('items');
+    const categoriesNav = document.getElementById('categories');
     const submitBtn = document.getElementById('submitBtn');
     const noteInput = document.getElementById('note');
     const selectedItems = new Map();
+
+    let allItems = [];
+    let activeCategory = 'все';
 
     function getUserName() {
       const user = tg.initDataUnsafe?.user;
@@ -55,12 +61,15 @@
     function createCard(item) {
       const card = document.createElement('article');
       card.className = 'card';
+      if (selectedItems.has(item.id)) card.classList.add('selected');
       card.innerHTML = `
-        <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy">
+        <div class="card-image-wrap">
+          <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.style.opacity='0'">
+        </div>
         <div class="card-body">
           <h2 class="card-title">${item.title}</h2>
           <p class="card-place">${item.place}</p>
-          <button class="card-toggle" type="button">Выбрать</button>
+          <button class="card-toggle" type="button">${selectedItems.has(item.id) ? 'Выбрано 💖' : 'Выбрать'}</button>
         </div>
       `;
       const button = card.querySelector('.card-toggle');
@@ -71,10 +80,35 @@
       return card;
     }
 
+    function renderItems() {
+      itemsContainer.innerHTML = '';
+      const filtered = activeCategory === 'все'
+        ? allItems
+        : allItems.filter(i => i.category === activeCategory);
+      filtered.forEach(item => itemsContainer.appendChild(createCard(item)));
+    }
+
+    function renderCategories(items) {
+      const cats = ['все', ...new Set(items.map(i => i.category).filter(Boolean))];
+      cats.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'cat-btn' + (cat === activeCategory ? ' active' : '');
+        btn.textContent = cat;
+        btn.addEventListener('click', () => {
+          activeCategory = cat;
+          document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderItems();
+        });
+        categoriesNav.appendChild(btn);
+      });
+    }
+
     async function loadItems() {
       const response = await fetch('./items.json');
-      const items = await response.json();
-      items.forEach(item => itemsContainer.appendChild(createCard(item)));
+      allItems = await response.json();
+      renderCategories(allItems);
+      renderItems();
     }
 
     submitBtn.addEventListener('click', () => {

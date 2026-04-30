@@ -3,168 +3,280 @@
     "id": 1,
     "title": "Капибарное",
     "place": "Лавка",
-    "image": "./images/karbo.png"
+    "image": "./images/karbo.png",
+    "category": "вкусное"
   },
   {
     "id": 2,
     "title": "Круассан",
     "place": "ВкусВилл",
-    "image": "https://static.insales-cdn.com/r/fHWCzc4AlFA/rs:fit:1200:1200:1/plain/images/products/1/8181/214114293/kruassan-vkusvill-90g.jpg@jpg"
+    "image": "https://static.insales-cdn.com/r/fHWCzc4AlFA/rs:fit:1200:1200:1/plain/images/products/1/8181/214114293/kruassan-vkusvill-90g.jpg@jpg",
+    "category": "еда"
   },
   {
     "id": 3,
     "title": "Супчик куриновый",
     "place": "ВкусВилл",
-    "image": "./images/soup.webp"
+    "image": "./images/soup.webp",
+    "category": "еда"
   },
   {
     "id": 4,
     "title": "Питса (как в прошлый раз)",
     "place": "ДоДо",
-    "image": "./images/pizaa.jpg"
+    "image": "./images/pizaa.jpg",
+    "category": "еда"
   },
   {
     "id": 5,
     "title": "Питса (сам реши)",
     "place": "гденибудь",
-    "image": "./images/pizza.jpg"
+    "image": "./images/pizza.jpg",
+    "category": "еда"
   },
   {
     "id": 6,
     "title": "Хот Доги",
     "place": "сам сделай суко",
-    "image": "./images/hot-dog.png"
+    "image": "./images/hot-dog.png",
+    "category": "еда"
   },
   {
     "id": 7,
     "title": "Шава",
     "place": "сам сделай суко",
-    "image": "./images/shava.jpg"
+    "image": "./images/shava.jpg",
+    "category": "еда"
   },
   {
     "id": 8,
     "title": "Манна Кашная",
     "place": "сам сделай суко",
-    "image": "./images/manka.jpg"
+    "image": "./images/manka.jpg",
+    "category": "еда"
   },
   {
     "id": 9,
     "title": "Keks",
     "place": "закажи шоколадный где-нибудь",
-    "image": "./images/keks.webp"
+    "image": "./images/keks.webp",
+    "category": "вкусное"
   },
   {
     "id": 10,
     "title": "Keks",
     "place": "сам сделай суко",
-    "image": "./images/keks_sam.webp"
+    "image": "./images/keks_sam.webp",
+    "category": "вкусное"
   },
   {
     "id": 11,
     "title": "Сальчичон",
     "place": "МНЕ ПОХУЙ ОТКУДА",
-    "image": "./images/salchichon.webp"
+    "image": "./images/salchichon.webp",
+    "category": "еда"
   },
   {
     "id": 12,
     "title": "Огурчике",
     "place": "Вкусвилл",
-    "image": "./images/cucumber.webp"
+    "image": "./images/cucumber.webp",
+    "category": "еда"
   },
   {
     "id": 13,
     "title": "Горячие бутеры хачю",
     "place": "ну ты понял",
-    "image": "./images/buter.jpg"
+    "image": "./images/buter.jpg",
+    "category": "еда"
   },
   {
     "id": 14,
     "title": "Сендвичи!!!",
     "place": "ААААА",
-    "image": "./images/sand.jpg"
+    "image": "./images/sand.jpg",
+    "category": "еда"
   },
   {
     "id": 15,
     "title": "Роллы",
     "place": "Достаевский или ебидоеби",
-    "image": "./images/rolls.jpg"
+    "image": "./images/rolls.jpg",
+    "category": "еда"
   },
   {
     "id": 16,
     "title": "Подливку ХОЧУ",
     "place": "сделаеш",
-    "image": "./images/podliva.jpg"
+    "image": "./images/podliva.jpg",
+    "category": "еда"
   },
   {
     "id": 17,
     "title": "МЯСА СУКА МЯСА",
     "place": "сделаеш",
-    "image": "./images/myaso.jpg"
+    "image": "./images/myaso.jpg",
+    "category": "еда"
   },
   {
     "id": 18,
     "title": "БОРЩ",
     "place": "сделаеш",
-    "image": "./images/borsh.jpeg"
+    "image": "./images/borsh.jpeg",
+    "category": "еда"
   },
   {
     "id": 19,
     "title": "Пельмени",
     "place": "сварить",
-    "image": "./images/pelmeni.webp"
+    "image": "./images/pelmeni.webp",
+    "category": "еда"
   },
   {
     "id": 20,
     "title": "Пельмени",
     "place": "пожариц",
-    "image": "./images/pelmenijar.jpg"
+    "image": "./images/pelmenijar.jpg",
+    "category": "еда"
   },
   {
     "id": 21,
     "title": "Роллтон",
     "place": "куриновый",
-    "image": "./images/rollton.jpg"
+    "image": "./images/rollton.jpg",
+    "category": "еда"
   },
   {
     "id": 22,
     "title": "Пюре",
     "place": "роллтонское",
-    "image": "./images/pureroll.webp"
+    "image": "./images/pureroll.webp",
+    "category": "еда"
   },
   {
     "id": 23,
     "title": "Пюре",
     "place": "нормальное",
-    "image": "./images/pure.webp"
+    "image": "./images/pure.webp",
+    "category": "еда"
   },
   {
     "id": 24,
     "title": "чепсы",
     "place": "",
-    "image": "./images/chepso.webp"
+    "image": "./images/chepso.webp",
+    "category": "вкусное"
   },
   {
     "id": 25,
     "title": "кола",
     "place": "",
-    "image": "./images/cola.jpg"
+    "image": "./images/cola.jpg",
+    "category": "напитки"
   },
   {
     "id": 26,
     "title": "КВАС",
     "place": "",
-    "image": "./images/kvas.png"
+    "image": "./images/kvas.png",
+    "category": "напитки"
   },
   {
     "id": 27,
     "title": "И КОШКУ ПРИНЕСИ",
     "place": "МНЕ ПОХУЙ ОТКУДА",
-    "image": "./images/kosh.jpg"
+    "image": "./images/kosh.jpg",
+    "category": "услуги"
   },
   {
     "id": 28,
     "title": "Гладица",
     "place": "сюда подошел",
-    "image": "./images/gladitsa.webp"
+    "image": "./images/gladitsa.webp",
+    "category": "услуги"
+  },
+  {
+    "id": 29,
+    "title": "Фарети шоколадный",
+    "place": "",
+    "image": "./images/fareti.jpg",
+    "category": "вкусное"
+  },
+  {
+    "id": 30,
+    "title": "Мак",
+    "place": "McDonald's",
+    "image": "./images/mak.jpg",
+    "category": "еда"
+  },
+  {
+    "id": 31,
+    "title": "Милкшейк шоколадный",
+    "place": "купить",
+    "image": "./images/milkshake.jpg",
+    "category": "напитки"
+  },
+  {
+    "id": 32,
+    "title": "Энергетики",
+    "place": "",
+    "image": "./images/energy.jpg",
+    "category": "напитки"
+  },
+  {
+    "id": 33,
+    "title": "Мороженое",
+    "place": "",
+    "image": "./images/ice-cream.jpg",
+    "category": "вкусное"
+  },
+  {
+    "id": 34,
+    "title": "Генезис фиолетовый",
+    "place": "",
+    "image": "./images/genesis.jpg",
+    "category": "напитки"
+  },
+  {
+    "id": 35,
+    "title": "Фереро роше",
+    "place": "",
+    "image": "./images/ferrero.jpg",
+    "category": "вкусное"
+  },
+  {
+    "id": 36,
+    "title": "Вторую кошку",
+    "place": "МНЕ ПОХУЙ ОТКУДА",
+    "image": "./images/kosh2.jpg",
+    "category": "услуги"
+  },
+  {
+    "id": 37,
+    "title": "Ребенка",
+    "place": "сам знаешь откуда",
+    "image": "./images/baby.jpg",
+    "category": "услуги"
+  },
+  {
+    "id": 38,
+    "title": "Кириешки",
+    "place": "",
+    "image": "./images/kirieshki.jpg",
+    "category": "вкусное"
+  },
+  {
+    "id": 39,
+    "title": "Овсянка",
+    "place": "сваришь",
+    "image": "./images/ovsyanka.jpg",
+    "category": "еда"
+  },
+  {
+    "id": 40,
+    "title": "Покормить Касю вкусным",
+    "place": "ТЫ ЗНАЕШЬ ЧТО ДЕЛАТЬ",
+    "image": "./images/kasya.jpg",
+    "category": "услуги"
   }
 ]
