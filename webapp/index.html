@@ -10,11 +10,17 @@
 <body>
   <main class="app">
     <header class="hero">
-      <h1>Что тебе хочется?</h1>
+      <h1>Что тебе хочется? 💖</h1>
       <p>Выбери и нажми кнопку ниже</p>
     </header>
 
-    <nav class="categories" id="categories"></nav>
+    <nav class="categories" id="categories">
+      <button class="cat-btn active" data-cat="все">✨ Все</button>
+      <button class="cat-btn" data-cat="еда">🍽 Еда</button>
+      <button class="cat-btn" data-cat="напитки">🥤 Напитки</button>
+      <button class="cat-btn" data-cat="вкусное">🍬 Вкусное</button>
+      <button class="cat-btn" data-cat="услуги">💋 Услуги</button>
+    </nav>
 
     <section id="items" class="grid"></section>
 
@@ -34,7 +40,6 @@
     tg.expand();
 
     const itemsContainer = document.getElementById('items');
-    const categoriesNav = document.getElementById('categories');
     const submitBtn = document.getElementById('submitBtn');
     const noteInput = document.getElementById('note');
     const selectedItems = new Map();
@@ -42,8 +47,18 @@
     let allItems = [];
     let activeCategory = 'все';
 
+    // Категории — хардкод, чтобы не зависеть от данных
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCategory = btn.dataset.cat;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderItems();
+      });
+    });
+
     function getUserName() {
-      const user = tg.initDataUnsafe?.user;
+      const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
       if (!user) return 'Неизвестный пользователь';
       return [user.first_name, user.last_name].filter(Boolean).join(' ');
     }
@@ -62,18 +77,18 @@
       const card = document.createElement('article');
       card.className = 'card';
       if (selectedItems.has(item.id)) card.classList.add('selected');
-      card.innerHTML = `
-        <div class="card-image-wrap">
-          <img class="card-image" src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.style.opacity='0'">
-        </div>
-        <div class="card-body">
-          <h2 class="card-title">${item.title}</h2>
-          <p class="card-place">${item.place}</p>
-          <button class="card-toggle" type="button">${selectedItems.has(item.id) ? 'Выбрано 💖' : 'Выбрать'}</button>
-        </div>
-      `;
+      const isSelected = selectedItems.has(item.id);
+      card.innerHTML =
+        '<div class="card-image-wrap">' +
+          '<img class="card-image" src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.style.opacity=0">' +
+        '</div>' +
+        '<div class="card-body">' +
+          '<h2 class="card-title">' + item.title + '</h2>' +
+          '<p class="card-place">' + (item.place || '') + '</p>' +
+          '<button class="card-toggle" type="button">' + (isSelected ? 'Выбрано 💖' : 'Выбрать') + '</button>' +
+        '</div>';
       const button = card.querySelector('.card-toggle');
-      button.addEventListener('click', () => {
+      button.addEventListener('click', function() {
         toggleItem(item, card);
         button.textContent = selectedItems.has(item.id) ? 'Выбрано 💖' : 'Выбрать';
       });
@@ -82,37 +97,30 @@
 
     function renderItems() {
       itemsContainer.innerHTML = '';
-      const filtered = activeCategory === 'все'
+      var filtered = activeCategory === 'все'
         ? allItems
-        : allItems.filter(i => i.category === activeCategory);
-      filtered.forEach(item => itemsContainer.appendChild(createCard(item)));
-    }
-
-    function renderCategories(items) {
-      const cats = ['все', ...new Set(items.map(i => i.category).filter(Boolean))];
-      cats.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'cat-btn' + (cat === activeCategory ? ' active' : '');
-        btn.textContent = cat;
-        btn.addEventListener('click', () => {
-          activeCategory = cat;
-          document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          renderItems();
-        });
-        categoriesNav.appendChild(btn);
+        : allItems.filter(function(i) { return i.category === activeCategory; });
+      filtered.forEach(function(item) {
+        itemsContainer.appendChild(createCard(item));
       });
     }
 
-    async function loadItems() {
-      const response = await fetch('./items.json');
-      allItems = await response.json();
-      renderCategories(allItems);
-      renderItems();
+    function loadItems() {
+      // cache-buster — чтобы браузер не подсовывал старый json
+      return fetch('./items.json?v=2')
+        .then(function(r) { return r.json(); })
+        .then(function(items) {
+          allItems = items;
+          renderItems();
+        })
+        .catch(function(err) {
+          console.error(err);
+          tg.showAlert('Не удалось загрузить карточки');
+        });
     }
 
-    submitBtn.addEventListener('click', () => {
-      const items = Array.from(selectedItems.values());
+    submitBtn.addEventListener('click', function() {
+      var items = Array.from(selectedItems.values());
       if (!items.length) {
         tg.showAlert('Выбери хотя бы одну позицию. Ну пожалуйста');
         return;
@@ -120,14 +128,11 @@
       tg.sendData(JSON.stringify({
         user_name: getUserName(),
         note: noteInput.value.trim(),
-        items
+        items: items
       }));
     });
 
-    loadItems().catch(err => {
-      console.error(err);
-      tg.showAlert('Не удалось загрузить карточки');
-    });
+    loadItems();
   </script>
 </body>
 </html>
