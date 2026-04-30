@@ -5,83 +5,68 @@
   --muted: #6b8099;
   --accent: #4aa8d8;
   --accent-dark: #2f8bbf;
+  --btn-idle-bg: #d6eef9;
+  --btn-idle-color: #1a5f88;
   --border: #cce4f7;
   --shadow: 0 4px 14px rgba(74, 168, 216, 0.13);
-  --radius: 16px;
+  --radius: 14px;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
 .app {
-  max-width: 900px;
-  margin: 0 auto;
   padding: 14px 10px 32px;
 }
 
 /* ── Шапка ── */
-.hero { margin-bottom: 10px; }
-.hero h1 { margin: 0 0 2px; font-size: 20px; }
-.hero p { margin: 0; color: var(--muted); font-size: 13px; }
+.hero { margin-bottom: 12px; }
+.hero h1 { font-size: 20px; margin-bottom: 2px; }
+.hero p { color: var(--muted); font-size: 13px; }
 
 /* ── Категории ── */
 .categories {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
-  padding: 2px 0 12px;
+  padding-bottom: 12px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 .categories::-webkit-scrollbar { display: none; }
 
+/* Точно такой же вид как card-toggle, но шире и пропорциональный паддинг */
 .cat-btn {
   flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border: 1.5px solid var(--border);
-  border-radius: 20px;
-  padding: 7px 13px;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 16px;
   font-size: 13px;
-  font-weight: 600;
-  background: #fff;
-  color: var(--muted);
+  font-weight: 700;
+  background: var(--btn-idle-bg);
+  color: var(--btn-idle-color);
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.15s ease;
+  transition: background 0.15s, color 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
-
-.cat-btn:active {
-  transform: scale(0.95);
-}
-
+.cat-btn:active { opacity: 0.8; transform: scale(0.96); }
 .cat-btn.active {
   background: var(--accent);
   color: #fff;
-  border-color: var(--accent);
-  box-shadow: 0 2px 8px rgba(74,168,216,0.35);
 }
 
-/* ── Сетка: 2 колонки на мобайле ── */
+/* ── Сетка — жёстко 2 колонки ── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-}
-
-@media (min-width: 600px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 900px) {
-  .grid { grid-template-columns: repeat(4, 1fr); }
+  width: 100%;
 }
 
 /* ── Карточка ── */
@@ -91,32 +76,30 @@ body {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   display: flex;
   flex-direction: column;
+  transition: border-color 0.15s, transform 0.15s;
 }
-
 .card.selected {
   border-color: var(--accent);
-  box-shadow: 0 4px 16px rgba(74,168,216,0.25);
   transform: translateY(-2px);
 }
 
+/* Обёртка картинки: квадрат, contain */
 .card-image-wrap {
   width: 100%;
   aspect-ratio: 1 / 1;
   background: #daeef9;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
-
 .card-image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  display: block;
 }
 
 .card-body {
@@ -125,38 +108,35 @@ body {
   flex-direction: column;
   flex: 1;
 }
-
 .card-title {
-  margin: 0 0 3px;
   font-size: 13px;
-  line-height: 1.3;
   font-weight: 700;
-}
-
-.card-place {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 11px;
-  flex: 1;
   line-height: 1.3;
+  margin-bottom: 3px;
+}
+.card-place {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.3;
+  flex: 1;
+  margin-bottom: 8px;
 }
 
+/* Кнопка — тот же стиль, что cat-btn */
 .card-toggle {
   width: 100%;
   border: none;
   border-radius: 10px;
-  padding: 8px 4px;
-  background: #d6eef9;
-  color: #1a5f88;
-  font-weight: 700;
+  padding: 9px 4px;
   font-size: 12px;
+  font-weight: 700;
+  background: var(--btn-idle-bg);
+  color: var(--btn-idle-color);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s, color 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
-
-.card-toggle:active { transform: scale(0.97); }
-
+.card-toggle:active { opacity: 0.8; }
 .card.selected .card-toggle {
   background: var(--accent);
   color: #fff;
@@ -164,34 +144,38 @@ body {
 
 /* ── Комментарий ── */
 .note-box { margin-top: 20px; }
-.note-box label { display: block; margin-bottom: 8px; font-weight: bold; }
+.note-box label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
 .note-box textarea {
   width: 100%;
   min-height: 80px;
   border: 1.5px solid var(--border);
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 12px;
   font-size: 14px;
   resize: vertical;
   background: #f7fbff;
   outline: none;
-  transition: border-color 0.15s ease;
+  font-family: Arial, sans-serif;
+  transition: border-color 0.15s;
 }
 .note-box textarea:focus { border-color: var(--accent); }
 
-/* ── Кнопка ── */
+/* ── Кнопка хочу ── */
 .footer { margin-top: 18px; }
 .submit-btn {
+  display: block;
   width: 100%;
   border: none;
-  border-radius: 16px;
-  padding: 15px;
-  font-size: 17px;
-  font-weight: bold;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
   background: var(--accent);
-  color: white;
+  color: #fff;
   cursor: pointer;
-  transition: background 0.15s ease;
+  font-family: Arial, sans-serif;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
 .submit-btn:hover { background: var(--accent-dark); }
-.submit-btn:active { transform: scale(0.99); }
+.submit-btn:active { opacity: 0.85; }

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Меню</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles.css?v=3" />
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -14,8 +14,7 @@
       <p>Выбери и нажми кнопку ниже</p>
     </header>
 
-    <nav class="categories" id="categories">
-      <button class="cat-btn active" data-cat="все">✨ Все</button>
+    <nav class="categories">
       <button class="cat-btn" data-cat="еда">🍽 Еда</button>
       <button class="cat-btn" data-cat="напитки">🥤 Напитки</button>
       <button class="cat-btn" data-cat="вкусное">🍬 Вкусное</button>
@@ -35,92 +34,115 @@
   </main>
 
   <script>
-    const tg = window.Telegram.WebApp;
+    var tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
 
-    const itemsContainer = document.getElementById('items');
-    const submitBtn = document.getElementById('submitBtn');
-    const noteInput = document.getElementById('note');
-    const selectedItems = new Map();
+    var itemsContainer = document.getElementById('items');
+    var submitBtn = document.getElementById('submitBtn');
+    var noteInput = document.getElementById('note');
+    var selectedItems = {};
+    var allItems = [];
+    var activeCategory = null; // null = показывать все
 
-    let allItems = [];
-    let activeCategory = 'все';
-
-    // Категории — хардкод, чтобы не зависеть от данных
-    document.querySelectorAll('.cat-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeCategory = btn.dataset.cat;
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderItems();
-      });
-    });
+    // Клик по категории: выбрать или снять выбор
+    var catBtns = document.querySelectorAll('.cat-btn');
+    for (var ci = 0; ci < catBtns.length; ci++) {
+      (function(btn) {
+        btn.addEventListener('click', function() {
+          var cat = btn.getAttribute('data-cat');
+          if (activeCategory === cat) {
+            activeCategory = null;
+            btn.classList.remove('active');
+          } else {
+            activeCategory = cat;
+            for (var i = 0; i < catBtns.length; i++) catBtns[i].classList.remove('active');
+            btn.classList.add('active');
+          }
+          renderItems();
+        });
+      })(catBtns[ci]);
+    }
 
     function getUserName() {
-      const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
+      var user = tg.initDataUnsafe && tg.initDataUnsafe.user;
       if (!user) return 'Неизвестный пользователь';
       return [user.first_name, user.last_name].filter(Boolean).join(' ');
     }
 
-    function toggleItem(item, card) {
-      if (selectedItems.has(item.id)) {
-        selectedItems.delete(item.id);
-        card.classList.remove('selected');
-      } else {
-        selectedItems.set(item.id, { id: item.id, title: item.title, place: item.place });
-        card.classList.add('selected');
-      }
-    }
-
     function createCard(item) {
-      const card = document.createElement('article');
-      card.className = 'card';
-      if (selectedItems.has(item.id)) card.classList.add('selected');
-      const isSelected = selectedItems.has(item.id);
-      card.innerHTML =
-        '<div class="card-image-wrap">' +
-          '<img class="card-image" src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.style.opacity=0">' +
-        '</div>' +
-        '<div class="card-body">' +
-          '<h2 class="card-title">' + item.title + '</h2>' +
-          '<p class="card-place">' + (item.place || '') + '</p>' +
-          '<button class="card-toggle" type="button">' + (isSelected ? 'Выбрано 💖' : 'Выбрать') + '</button>' +
-        '</div>';
-      const button = card.querySelector('.card-toggle');
-      button.addEventListener('click', function() {
-        toggleItem(item, card);
-        button.textContent = selectedItems.has(item.id) ? 'Выбрано 💖' : 'Выбрать';
+      var card = document.createElement('article');
+      card.className = 'card' + (selectedItems[item.id] ? ' selected' : '');
+
+      var wrap = document.createElement('div');
+      wrap.className = 'card-image-wrap';
+      var img = document.createElement('img');
+      img.className = 'card-image';
+      img.src = item.image;
+      img.alt = item.title;
+      img.loading = 'lazy';
+      img.onerror = function() { this.style.opacity = 0; };
+      wrap.appendChild(img);
+
+      var body = document.createElement('div');
+      body.className = 'card-body';
+
+      var h2 = document.createElement('h2');
+      h2.className = 'card-title';
+      h2.textContent = item.title;
+
+      var place = document.createElement('p');
+      place.className = 'card-place';
+      place.textContent = item.place || '';
+
+      var btn = document.createElement('button');
+      btn.className = 'card-toggle';
+      btn.type = 'button';
+      btn.textContent = selectedItems[item.id] ? 'Выбрано 💖' : 'Выбрать';
+
+      btn.addEventListener('click', function() {
+        if (selectedItems[item.id]) {
+          delete selectedItems[item.id];
+          card.classList.remove('selected');
+          btn.textContent = 'Выбрать';
+        } else {
+          selectedItems[item.id] = { id: item.id, title: item.title, place: item.place };
+          card.classList.add('selected');
+          btn.textContent = 'Выбрано 💖';
+        }
       });
+
+      body.appendChild(h2);
+      body.appendChild(place);
+      body.appendChild(btn);
+      card.appendChild(wrap);
+      card.appendChild(body);
       return card;
     }
 
     function renderItems() {
       itemsContainer.innerHTML = '';
-      var filtered = activeCategory === 'все'
-        ? allItems
-        : allItems.filter(function(i) { return i.category === activeCategory; });
-      filtered.forEach(function(item) {
-        itemsContainer.appendChild(createCard(item));
-      });
+      var list = activeCategory
+        ? allItems.filter(function(i) { return i.category === activeCategory; })
+        : allItems;
+      for (var i = 0; i < list.length; i++) {
+        itemsContainer.appendChild(createCard(list[i]));
+      }
     }
 
-    function loadItems() {
-      // cache-buster — чтобы браузер не подсовывал старый json
-      return fetch('./items.json?v=2')
-        .then(function(r) { return r.json(); })
-        .then(function(items) {
-          allItems = items;
-          renderItems();
-        })
-        .catch(function(err) {
-          console.error(err);
-          tg.showAlert('Не удалось загрузить карточки');
-        });
-    }
+    fetch('./items.json?v=3')
+      .then(function(r) { return r.json(); })
+      .then(function(items) {
+        allItems = items;
+        renderItems();
+      })
+      .catch(function(err) {
+        console.error(err);
+        tg.showAlert('Не удалось загрузить карточки');
+      });
 
     submitBtn.addEventListener('click', function() {
-      var items = Array.from(selectedItems.values());
+      var items = Object.values(selectedItems);
       if (!items.length) {
         tg.showAlert('Выбери хотя бы одну позицию. Ну пожалуйста');
         return;
@@ -131,8 +153,6 @@
         items: items
       }));
     });
-
-    loadItems();
   </script>
 </body>
 </html>
