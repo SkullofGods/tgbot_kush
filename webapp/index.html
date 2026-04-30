@@ -15,10 +15,10 @@
     </header>
 
     <nav class="categories">
-      <button class="cat-btn" data-cat="вкусняшки">🍬 Вкусняшки</button>
-      <button class="cat-btn" data-cat="еда">🍳 Еда</button>
-      <button class="cat-btn" data-cat="напитки">🥤 Напитки</button>
-      <button class="cat-btn" data-cat="услуги">💋 Услуги</button>
+      <button class="cat-btn" data-cat="вкусняшки">Вкусново</button>
+      <button class="cat-btn" data-cat="еда">Еда</button>
+      <button class="cat-btn" data-cat="напитки">Напитки</button>
+      <button class="cat-btn" data-cat="услуги">Услуги</button>
     </nav>
 
     <section id="items" class="grid"></section>
@@ -65,7 +65,7 @@
 
     function getUserName() {
       var user = tg.initDataUnsafe && tg.initDataUnsafe.user;
-      if (!user) return 'Неизвестный пользователь';
+      if (!user) return 'Сам знаешь хто';
       return [user.first_name, user.last_name].filter(Boolean).join(' ');
     }
 
